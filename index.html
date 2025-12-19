@@ -4,548 +4,577 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pendaftaran PDP KESAN Sinjai 2026</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons (Untuk Icon gaya Apple) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Google Fonts (Inter untuk kemiripan dengan San Francisco) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-        /* --- iOS SYSTEM STYLES --- */
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #F2F2F7; /* iOS Light Gray Background */
-            color: #000;
+        /* --- iOS VARIANTS & RESET --- */
+        :root {
+            --ios-blue: #007AFF;
+            --ios-gray: #8E8E93;
+            --ios-bg: #F2F2F7;
+            --ios-card: rgba(255, 255, 255, 0.75);
+            --ios-text: #000000;
+            --ios-border: #C6C6C8;
+            --ios-green: #34C759;
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             -webkit-tap-highlight-color: transparent;
-            overflow: hidden; /* Prevent body scroll, handle inside app container */
-            height: 100vh;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: #F2F2F7;
+            /* Wallpaper abstrak gaya iOS */
+            background-image: radial-gradient(circle at 50% 0%, #a1c4fd 0%, #c2e9fb 100%);
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--ios-text);
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* Phone Frame (Desktop View) */
-        .iphone-frame {
+        /* --- MAIN CONTAINER (Glassmorphism) --- */
+        .app-container {
             width: 100%;
-            height: 100%;
-            max-width: 430px; /* iPhone Pro Max width */
-            max-height: 932px;
-            background: #fff;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        @media (min-width: 640px) {
-            .iphone-frame {
-                height: 90vh;
-                border-radius: 40px;
-                border: 8px solid #1c1c1e;
-            }
-        }
-
-        /* Custom Scrollbar for form content */
-        .custom-scroll::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-        }
-
-        /* iOS Inputs */
-        .ios-input {
-            background-color: #F2F2F7;
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 17px;
-            width: 100%;
-            border: none;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-        .ios-input:focus {
-            background-color: #E5E5EA;
-        }
-
-        .ios-label {
-            font-size: 13px;
-            color: #8E8E93;
-            margin-bottom: 6px;
-            margin-left: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-
-        /* Animations */
-        .step-container {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .step-active {
-            display: flex;
-            flex-direction: column;
-            opacity: 1;
-            animation: slideInRight 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .step-exit {
-            animation: slideOutLeft 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOutLeft {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(-20%); opacity: 0; }
-        }
-
-        /* Glassmorphism Header & Footer */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
+            max-width: 420px; /* Ukuran lebar iPhone Max */
+            background: var(--ios-card);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            max-height: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        /* Progress Bar */
-        .progress-track {
-            background: #E5E5EA;
+        /* --- HEADER & PROGRESS --- */
+        .header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: var(--ios-gray);
+            margin-bottom: 15px;
+        }
+
+        .progress-container {
+            width: 100%;
             height: 4px;
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 2px;
             overflow: hidden;
         }
-        .progress-fill {
-            background: #007AFF; /* iOS Blue */
+
+        .progress-bar {
             height: 100%;
-            transition: width 0.4s ease;
+            width: 0%;
+            background: var(--ios-blue);
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
+        /* --- FORM STEPS WRAPPER --- */
+        .form-body {
+            flex: 1;
+            position: relative;
+            overflow: hidden; /* Hide steps that are out of view */
+        }
+
+        .step {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow-y: auto;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+            opacity: 0;
+            transform: translateX(100%);
+            pointer-events: none;
+            /* Hide scrollbar but keep functionality */
+            scrollbar-width: none; 
+        }
+
+        .step::-webkit-scrollbar {
+            display: none;
+        }
+
+        .step.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .step.prev {
+            transform: translateX(-30%);
+            opacity: 0;
+        }
+
+        /* --- INPUT FIELDS (iOS Style) --- */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--ios-gray);
+            margin-bottom: 8px;
+            margin-left: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 16px;
+            font-size: 17px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.1); /* Subtle border */
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            color: #000;
+            transition: all 0.2s ease;
+            appearance: none; /* Remove default styling */
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            background: #fff;
+            border-color: var(--ios-blue);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        /* --- FOOTER & BUTTONS --- */
+        .footer {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.1s active, opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-prev {
+            background: transparent;
+            color: var(--ios-blue);
+        }
+
+        .btn-next {
+            background: var(--ios-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+            min-width: 120px;
+        }
+        
+        .btn-submit {
+            background: var(--ios-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+            width: 100%;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- SECTION TITLES IN STEPS --- */
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- SVG ICONS --- */
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* --- ANIMASI SUCCESS --- */
+        .success-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            padding: 40px;
+        }
+        .success-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--ios-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 40px;
+            box-shadow: 0 10px 20px rgba(52, 199, 89, 0.4);
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Audio Elements (Sound Effects) -->
-    <!-- Sound: Soft click -->
-    <audio id="sound-tap" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-    <!-- Sound: Swoosh/Slide -->
-    <audio id="sound-swoosh" src="https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.mp3" preload="auto"></audio>
-    <!-- Sound: Success -->
-    <audio id="sound-success" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" preload="auto"></audio>
-
-    <!-- Main App Container -->
-    <div class="iphone-frame relative">
+    <div class="app-container">
         
-        <!-- iOS Status Bar (Visual Only) -->
-        <div class="h-12 w-full flex justify-between items-end px-6 pb-2 select-none z-50 bg-white/80 backdrop-blur-md">
-            <span class="font-semibold text-sm">9:41</span>
-            <div class="flex gap-2 items-center">
-                <i data-lucide="signal" class="w-4 h-4"></i>
-                <i data-lucide="wifi" class="w-4 h-4"></i>
-                <i data-lucide="battery" class="w-5 h-5"></i>
+        <!-- HEADER -->
+        <div class="header">
+            <!-- !!! BAGIAN INI BISA DIUBAH (JUDUL) !!! -->
+            <h1>Pendaftaran PDP KESAN</h1>
+            <p>Kab. Sinjai Angkatan 15 - Tahun 2026</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
             </div>
         </div>
 
-        <!-- Header -->
-        <div class="px-6 pt-4 pb-2 bg-white z-40">
-            <h1 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Pendaftaran</h1>
-            <h2 class="text-2xl font-bold tracking-tight text-gray-900 leading-tight">PDP KESAN <br> <span class="text-blue-600">Angkatan 15</span></h2>
-            
-            <!-- Progress Bar -->
-            <div class="mt-4">
-                <div class="flex justify-between text-[10px] font-medium text-gray-400 mb-1">
-                    <span id="step-indicator">Langkah 1 dari 5</span>
-                    <span id="percent-indicator">20%</span>
-                </div>
-                <div class="progress-track">
-                    <div id="progress-bar" class="progress-fill w-[20%]"></div>
-                </div>
-            </div>
-        </div>
+        <!-- FORM BODY -->
+        <form id="registrationForm" class="form-body">
 
-        <!-- Form Content Area -->
-        <div class="flex-1 overflow-y-auto custom-scroll relative p-6 pb-32" id="form-container">
-            
-            <!-- STEP 1: Data Diri Dasar -->
-            <div class="step-container step-active" id="step-1">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-2">Data Diri</h3>
-                    <p class="text-sm text-gray-500">Mari mulai dengan identitas dasar Anda.</p>
+            <!-- STEP 1: Data Diri Utama -->
+            <div class="step active" id="step1">
+                <div class="step-title">
+                    <span style="color:var(--ios-blue)">1.</span> Data Diri
                 </div>
 
-                <div class="space-y-5">
-                    <div>
-                        <label class="ios-label">Nama Lengkap</label>
-                        <input type="text" id="nama" class="ios-input" placeholder="Masukkan nama lengkap">
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="ios-label">Tempat Lahir</label>
-                            <input type="text" id="tempat_lahir" class="ios-input" placeholder="Kota lahir">
-                        </div>
-                        <div>
-                            <label class="ios-label">Tanggal Lahir</label>
-                            <input type="date" id="tgl_lahir" class="ios-input">
-                        </div>
-                    </div>
+                <div class="input-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="nama" placeholder="Contoh: Andi Pratama" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Tempat Lahir</label>
+                    <input type="text" id="tempat_lahir" placeholder="Contoh: Sinjai" required>
+                </div>
 
-                    <div>
-                        <label class="ios-label">Agama</label>
-                        <select id="agama" class="ios-input bg-white">
-                            <option value="Islam">Islam</option>
-                            <option value="Kristen">Kristen</option>
-                            <option value="Katolik">Katolik</option>
-                            <option value="Hindu">Hindu</option>
-                            <option value="Buddha">Buddha</option>
-                            <option value="Konghucu">Konghucu</option>
-                        </select>
-                    </div>
+                <div class="input-group">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" id="tgl_lahir" required>
+                </div>
 
-                    <div>
-                        <label class="ios-label">Alamat Lengkap</label>
-                        <textarea id="alamat" rows="3" class="ios-input" placeholder="Jalan, RT/RW, Desa/Kelurahan"></textarea>
-                    </div>
+                <div class="input-group">
+                    <label>Agama</label>
+                    <select id="agama" required>
+                        <option value="" disabled selected>Pilih Agama</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Kristen">Kristen</option>
+                        <option value="Katolik">Katolik</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha">Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Alamat Lengkap</label>
+                    <textarea id="alamat" placeholder="Nama Jalan, Desa/Kelurahan, Kecamatan" required></textarea>
                 </div>
             </div>
 
             <!-- STEP 2: Pendidikan & Organisasi -->
-            <div class="step-container" id="step-2">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-2">Pendidikan</h3>
-                    <p class="text-sm text-gray-500">Latar belakang sekolah dan organisasi.</p>
+            <div class="step" id="step2">
+                <div class="step-title">
+                    <span style="color:var(--ios-blue)">2.</span> Pendidikan
                 </div>
 
-                <div class="space-y-5">
-                    <div>
-                        <label class="ios-label">Asal Sekolah</label>
-                        <input type="text" id="asal_sekolah" class="ios-input" placeholder="Contoh: SMA Negeri 1 Sinjai">
-                    </div>
-                    
-                    <div>
-                        <label class="ios-label">Kelas</label>
-                        <input type="text" id="kelas" class="ios-input" placeholder="Contoh: X IPA 1">
-                    </div>
+                <div class="input-group">
+                    <label>Asal Sekolah</label>
+                    <input type="text" id="asal_sekolah" placeholder="Nama Sekolah Kamu" required>
+                </div>
 
-                    <div>
-                        <label class="ios-label">Organisasi yang dimasuki</label>
-                        <textarea id="organisasi" rows="3" class="ios-input" placeholder="Sebutkan jika ada (OSIS, Pramuka, dll)"></textarea>
-                    </div>
+                <div class="input-group">
+                    <label>Kelas</label>
+                    <input type="text" id="kelas" placeholder="Contoh: X MIPA 1" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Organisasi Yang Dimasuki</label>
+                    <textarea id="organisasi" placeholder="OSIS, Pramuka, PMR, dll (Jika ada)"></textarea>
                 </div>
             </div>
 
             <!-- STEP 3: Minat & Favorit -->
-            <div class="step-container" id="step-3">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-2">Minat & Hobi</h3>
-                    <p class="text-sm text-gray-500">Ceritakan sedikit tentang kesukaan Anda.</p>
+            <div class="step" id="step3">
+                <div class="step-title">
+                    <span style="color:var(--ios-blue)">3.</span> Minat & Favorit
                 </div>
 
-                <div class="space-y-5">
-                    <div>
-                        <label class="ios-label">Hobi</label>
-                        <input type="text" id="hobi" class="ios-input" placeholder="Apa hobi Anda?">
-                    </div>
-                    
-                    <div>
-                        <label class="ios-label">Buku yang pernah dibaca</label>
-                        <input type="text" id="buku" class="ios-input" placeholder="Judul buku terakhir">
-                    </div>
-
-                    <div>
-                        <label class="ios-label">Idola Favorit</label>
-                        <input type="text" id="idola" class="ios-input" placeholder="Siapa idola Anda?">
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 4: Tokoh Inspirasi -->
-            <div class="step-container" id="step-4">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-2">Tokoh Inspirasi</h3>
-                    <p class="text-sm text-gray-500">Siapa yang menginspirasi hidup Anda?</p>
+                <div class="input-group">
+                    <label>Hobi</label>
+                    <input type="text" id="hobi" required>
                 </div>
 
-                <div class="space-y-5">
-                    <div>
-                        <label class="ios-label">Tokoh Agama Favorit</label>
-                        <input type="text" id="tokoh_agama" class="ios-input" placeholder="Nama tokoh agama">
-                    </div>
-                    
-                    <div>
-                        <label class="ios-label">Tokoh Publik Favorit</label>
-                        <input type="text" id="tokoh_publik" class="ios-input" placeholder="Nama tokoh publik/nasional">
-                    </div>
+                <div class="input-group">
+                    <label>Buku yang pernah dibaca</label>
+                    <input type="text" id="buku" placeholder="Judul buku terakhir/favorit">
+                </div>
+
+                <div class="input-group">
+                    <label>Tokoh Agama Favorit</label>
+                    <input type="text" id="tokoh_agama" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Tokoh Publik Favorit</label>
+                    <input type="text" id="tokoh_publik" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Idola Favorit</label>
+                    <input type="text" id="idola" placeholder="Artis, Atlet, atau Tokoh lain" required>
                 </div>
             </div>
 
-            <!-- STEP 5: Motivasi (Final) -->
-            <div class="step-container" id="step-5">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-2">Motivasi</h3>
-                    <p class="text-sm text-gray-500">Langkah terakhir sebelum mengirim.</p>
+            <!-- STEP 4: Motivasi -->
+            <div class="step" id="step4">
+                <div class="step-title">
+                    <span style="color:var(--ios-blue)">4.</span> Tentang KESAN
                 </div>
 
-                <div class="space-y-5">
-                    <div>
-                        <label class="ios-label">Tahu KESAN dari mana?</label>
-                        <input type="text" id="sumber_info" class="ios-input" placeholder="Teman, Sosmed, Sekolah, dll">
-                    </div>
+                <div class="input-group">
+                    <label>Tahu KESAN dari mana?</label>
+                    <select id="sumber_info" required>
+                        <option value="" disabled selected>Pilih Sumber</option>
+                        <option value="Teman">Teman</option>
+                        <option value="Keluarga">Keluarga</option>
+                        <option value="Media Sosial">Media Sosial</option>
+                        <option value="Sosialisasi Sekolah">Sosialisasi Sekolah</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
 
-                    <div>
-                        <label class="ios-label">Alasan Masuk KESAN</label>
-                        <textarea id="alasan" rows="4" class="ios-input" placeholder="Jelaskan motivasi Anda bergabung..."></textarea>
-                    </div>
-
-                    <!-- Info Box -->
-                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mt-6">
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="info" class="text-blue-600 w-5 h-5 mt-0.5"></i>
-                            <div class="text-xs text-blue-800 leading-relaxed">
-                                Setelah menekan tombol kirim, Anda akan diarahkan ke WhatsApp Admin. Link grup WhatsApp akan disertakan otomatis di dalam pesan Anda.
-                            </div>
-                        </div>
-                    </div>
+                <div class="input-group">
+                    <label>Alasan Mau Masuk KESAN</label>
+                    <textarea id="alasan" placeholder="Tuliskan motivasi terbesarmu..." required style="height: 120px;"></textarea>
+                </div>
+                
+                <div style="margin-top:20px; padding: 15px; background: rgba(0,122,255,0.1); border-radius: 12px; font-size: 13px; color: #333; line-height: 1.4;">
+                    <strong>Info:</strong> Setelah menekan tombol kirim, Anda akan diarahkan ke WhatsApp Admin dan data akan otomatis tertulis. Link grup juga disertakan di pesan tersebut.
                 </div>
             </div>
 
+        </form>
+
+        <!-- FOOTER NAVIGATION -->
+        <div class="footer">
+            <button class="btn btn-prev hidden" id="prevBtn" onclick="changeStep(-1)">Kembali</button>
+            <button class="btn btn-next" id="nextBtn" onclick="changeStep(1)">Lanjut</button>
         </div>
 
-        <!-- Navigation Footer -->
-        <div class="absolute bottom-0 left-0 w-full glass-panel p-4 z-50">
-            <div class="flex gap-3">
-                <button id="btn-back" onclick="prevStep()" class="hidden px-6 py-3.5 rounded-xl bg-gray-200 text-gray-700 font-semibold text-[15px] active:scale-95 transition-transform duration-200">
-                    Kembali
-                </button>
-                <button id="btn-next" onclick="nextStep()" class="flex-1 py-3.5 rounded-xl bg-[#007AFF] text-white font-semibold text-[15px] shadow-lg shadow-blue-500/30 active:scale-95 transition-transform duration-200 flex justify-center items-center gap-2">
-                    Lanjut <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </button>
-                <button id="btn-submit" onclick="submitForm()" class="hidden flex-1 py-3.5 rounded-xl bg-[#34C759] text-white font-semibold text-[15px] shadow-lg shadow-green-500/30 active:scale-95 transition-transform duration-200 flex justify-center items-center gap-2">
-                    Kirim ke WhatsApp <i data-lucide="send" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <!-- Home Indicator -->
-            <div class="w-full flex justify-center mt-4 pb-1">
-                <div class="w-32 h-1.5 bg-black/20 rounded-full"></div>
-            </div>
+        <!-- SUCCESS SCREEN -->
+        <div class="success-overlay" id="successOverlay">
+            <div class="checkmark">✓</div>
+            <h2>Siap Mengirim!</h2>
+            <p style="margin-top: 10px; color: #666;">Membuka WhatsApp...</p>
         </div>
 
     </div>
 
     <script>
-        // --- KONFIGURASI YANG BISA DIUBAH (EDITABLE) ---
-        
-        // 1. Nomor WhatsApp Admin (Gunakan format 62 di depan, tanpa + atau 0)
-        const ADMIN_WA = "6287731949761"; 
-        
-        // 2. Link Grup WhatsApp (Akan disertakan di pesan)
-        const GROUP_LINK = "https://chat.whatsapp.com/JzhUrpN1uQmDUvjMvkgyyt";
-        
-        // --- END KONFIGURASI ---
+        /* --- CONFIGURATION (BISA DIUBAH) --- */
+        // Masukkan nomor WA Admin (gunakan kode negara 62, tanpa +)
+        const WA_NUMBER = "6287731949761"; 
+        // Link Grup WA
+        const GROUP_LINK = "https://chat.whatsapp.com/JzhUrpN1uQmDUvjMvkgyyt"; 
 
-        // Inisialisasi Icons
-        lucide.createIcons();
 
-        // State Variable
-        let currentStep = 1;
-        const totalSteps = 5;
+        /* --- LOGIC APP --- */
+        let currentStep = 0;
+        const steps = document.querySelectorAll('.step');
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const totalSteps = steps.length;
 
-        // Sound Elements
-        const tapSound = document.getElementById('sound-tap');
-        const swooshSound = document.getElementById('sound-swoosh');
-        const successSound = document.getElementById('sound-success');
+        // Sound Effects Context
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        // Fungsi Play Sound
-        function playTap() {
-            tapSound.currentTime = 0;
-            tapSound.volume = 0.5;
-            tapSound.play().catch(e => console.log("Audio prevent:", e));
+        // Fungsi Sound Effect "Click" (Suara ketuk ringan iOS)
+        function playClickSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
+            
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.05);
         }
 
-        function playSwoosh() {
-            swooshSound.currentTime = 0;
-            swooshSound.volume = 0.3;
-            swooshSound.play().catch(e => console.log("Audio prevent:", e));
+        // Fungsi Sound Effect "Swoosh/Success"
+        function playSuccessSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.4);
         }
 
-        function playSuccess() {
-            successSound.currentTime = 0;
-            successSound.play().catch(e => console.log("Audio prevent:", e));
-        }
-
-        // Fungsi Navigasi Langkah
         function updateUI() {
+            // Update Steps Visibility
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'prev');
+                if (index === currentStep) {
+                    step.classList.add('active');
+                } else if (index < currentStep) {
+                    step.classList.add('prev');
+                }
+            });
+
             // Update Progress Bar
-            const percent = (currentStep / totalSteps) * 100;
-            document.getElementById('progress-bar').style.width = percent + '%';
-            document.getElementById('percent-indicator').innerText = Math.round(percent) + '%';
-            document.getElementById('step-indicator').innerText = `Langkah ${currentStep} dari ${totalSteps}`;
+            const progress = ((currentStep + 1) / totalSteps) * 100;
+            progressBar.style.width = `${progress}%`;
 
-            // Show/Hide Steps
-            for(let i = 1; i <= totalSteps; i++) {
-                const el = document.getElementById(`step-${i}`);
-                if (i === currentStep) {
-                    el.classList.remove('hidden');
-                    el.classList.add('step-active');
-                    el.style.display = 'flex';
-                    
-                    // Reset scroll to top
-                    document.getElementById('form-container').scrollTop = 0;
+            // Update Buttons
+            if (currentStep === 0) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+
+            if (currentStep === totalSteps - 1) {
+                nextBtn.innerText = "Kirim WA";
+                nextBtn.classList.remove('btn-next');
+                nextBtn.classList.add('btn-submit');
+            } else {
+                nextBtn.innerText = "Lanjut";
+                nextBtn.classList.add('btn-next');
+                nextBtn.classList.remove('btn-submit');
+            }
+        }
+
+        function validateStep() {
+            const activeStep = steps[currentStep];
+            const inputs = activeStep.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = "#ff3b30"; // iOS Red
+                    // Animasi getar sedikit
+                    input.style.transform = "translateX(5px)";
+                    setTimeout(() => input.style.transform = "translateX(0)", 200);
                 } else {
-                    el.classList.remove('step-active');
-                    el.style.display = 'none';
+                    input.style.borderColor = "rgba(0,0,0,0.1)";
                 }
-            }
+            });
 
-            // Button States
-            const btnBack = document.getElementById('btn-back');
-            const btnNext = document.getElementById('btn-next');
-            const btnSubmit = document.getElementById('btn-submit');
-
-            if(currentStep === 1) {
-                btnBack.classList.add('hidden');
-            } else {
-                btnBack.classList.remove('hidden');
-            }
-
-            if(currentStep === totalSteps) {
-                btnNext.classList.add('hidden');
-                btnSubmit.classList.remove('hidden');
-                btnSubmit.style.display = 'flex'; // Ensure flex layout
-            } else {
-                btnNext.classList.remove('hidden');
-                btnSubmit.classList.add('hidden');
-            }
+            return isValid;
         }
 
-        function nextStep() {
-            if(validateStep(currentStep)) {
-                playTap();
-                setTimeout(playSwoosh, 100);
-                currentStep++;
-                updateUI();
-            } else {
-                // Shake effect or simple alert for validation
-                alert("Mohon lengkapi data di langkah ini sebelum melanjutkan.");
-            }
-        }
+        function changeStep(n) {
+            playClickSound();
 
-        function prevStep() {
-            playTap();
-            if(currentStep > 1) {
-                currentStep--;
-                updateUI();
-            }
-        }
-
-        // Validasi Sederhana (Pastikan input tidak kosong)
-        function validateStep(step) {
-            let inputs;
-            if (step === 1) {
-                inputs = ['nama', 'tempat_lahir', 'tgl_lahir', 'alamat'];
-            } else if (step === 2) {
-                inputs = ['asal_sekolah', 'kelas'];
-            } else {
-                return true; // Langkah lain opsional atau validasi minimal
+            if (n === 1 && !validateStep()) {
+                // Jangan pindah jika validasi gagal
+                return; 
             }
 
-            for(let id of inputs) {
-                const el = document.getElementById(id);
-                if(!el.value.trim()) {
-                    el.focus();
-                    el.style.border = "1px solid red";
-                    setTimeout(() => el.style.border = "none", 2000);
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // Fungsi Kirim ke WhatsApp
-        function submitForm() {
-            // Validasi langkah terakhir
-            const alasan = document.getElementById('alasan').value;
-            if(!alasan.trim()) {
-                alert("Mohon isi alasan Anda masuk KESAN.");
+            // Jika di langkah terakhir dan tekan Next
+            if (currentStep === totalSteps - 1 && n === 1) {
+                submitForm();
                 return;
             }
 
-            playSuccess();
-
-            // Ambil semua data
-            const data = {
-                nama: document.getElementById('nama').value,
-                kelas: document.getElementById('kelas').value,
-                hobi: document.getElementById('hobi').value,
-                buku: document.getElementById('buku').value,
-                tokohAgama: document.getElementById('tokoh_agama').value,
-                tokohPublik: document.getElementById('tokoh_publik').value,
-                idola: document.getElementById('idola').value,
-                tglLahir: document.getElementById('tgl_lahir').value,
-                agama: document.getElementById('agama').value,
-                alamat: document.getElementById('alamat').value,
-                tempatLahir: document.getElementById('tempat_lahir').value,
-                organisasi: document.getElementById('organisasi').value,
-                asalSekolah: document.getElementById('asal_sekolah').value,
-                alasan: document.getElementById('alasan').value,
-                sumber: document.getElementById('sumber_info').value
-            };
-
-            // Format Pesan WhatsApp
-            const message = `
-*PENDAFTARAN PDP KESAN ANGKATAN 15 (2026)*
-*KABUPATEN SINJAI*
-
---------------------------------
-*DATA PRIBADI*
-👤 Nama: ${data.nama}
-🎂 TTL: ${data.tempatLahir}, ${data.tglLahir}
-🙏 Agama: ${data.agama}
-🏠 Alamat: ${data.alamat}
-
-*PENDIDIKAN*
-🏫 Sekolah: ${data.asalSekolah}
-📚 Kelas: ${data.kelas}
-🎗 Organisasi: ${data.organisasi}
-
-*MINAT & TOKOH*
-🎨 Hobi: ${data.hobi}
-📖 Buku: ${data.buku}
-👳‍♂️ Tokoh Agama: ${data.tokohAgama}
-👨‍💼 Tokoh Publik: ${data.tokohPublik}
-🌟 Idola: ${data.idola}
-
-*MOTIVASI*
-💡 Sumber Info: ${data.sumber}
-🔥 Alasan: ${data.alasan}
---------------------------------
-
-Saya siap mengikuti proses PDP.
-Berikut Link Grup yang sudah saya simpan:
-${GROUP_LINK}
-`.trim();
-
-            // Encode URI dan Buka WhatsApp
-            const url = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(message)}`;
-            
-            // Delay sedikit untuk efek sound
-            setTimeout(() => {
-                window.open(url, '_blank');
-            }, 800);
+            currentStep += n;
+            updateUI();
         }
 
-        // Init pertama kali
-        updateUI();
-
-    </script>
-</body>
-</html>
-
+        function submitForm() {
+            playSuccessSound();
+            
+            // Ambil semua data
+            const nama = document.getElementById('nama').value;
+            const kelas = document.getElementById('kelas').value;
+            const hobi = document.getElementById('hobi').value;
+            const buku = document.getElementById('buku').value;
+            const tokohAgama = document.getElementById('tokoh_agama').value;
+            const tokohPublik = document.getElementById('tokoh_publik').value;
+            const idola = document.getElementById('idola').value;
+            const tglLahir = document.getElementById('tgl_lahir').value;
+            const agama = document.getElementById('agama').value;
+            const alamat = document.getElementById('alamat').value;
+     
